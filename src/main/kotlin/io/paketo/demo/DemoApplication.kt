@@ -4,9 +4,10 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import org.springframework.data.annotation.Id
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
@@ -28,6 +29,7 @@ interface AccessLogRepository : JpaRepository<AccessLog, Long> {
 }
 
 @Entity
+@Table(name = "accesslog")
 data class AccessLog(
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +43,7 @@ data class AccessLog(
 class IndexController(private val accessLogRepository: AccessLogRepository) {
 
 	@GetMapping
+	@Suppress("UNUSED")
 	fun sayHello(): String {
 		val accessLog = AccessLog(
 			accessTime = LocalDateTime.now() // Set the current time as access time
